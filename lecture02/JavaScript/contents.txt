@@ -1,0 +1,15 @@
+0. chapter1/clip3.js
+1. keywords
+2. identifier
+3. comments
+4. constant
+5. scope
+6. hoisting
+7. types
+8. conditional
+9. iteration
+10. function
+11. Object
+12. class
+13. Promise
+14. async-await
