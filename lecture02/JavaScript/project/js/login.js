@@ -16,15 +16,15 @@ async function login(event) {
 
   try {
     const res = await axios.post('https://api.marktube.tv/v1/me', {
-      email,
-      password,
+      email, // email: email
+      password, // password: password
     });
-    const { token } = res.data;
+    const { token } = res.data; // const token = res.data.token;
     if (token === undefined) {
       return;
     }
     localStorage.setItem('token', token);
-    location = '/';
+    location = '/'; // location.assign('/');
   } catch (error) {
     const data = error.response.data;
     if (data) {

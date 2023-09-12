@@ -9,17 +9,17 @@ async function getUserByToken(token) {
         Authorization: `Bearer ${token}`,
       },
     });
-    return res.data;
-  } catch (error) {
+    return res.data; // 문제 없으면 내려오고
+  } catch (error) { // 문제 있으면 null 로 이동
     console.log('getUserByToken error', error);
     return null;
   }
 }
 
 async function save(event) {
-  event.preventDefault();
+  event.preventDefault(); // 원래 submit 함수를 막아주기
   event.stopPropagation();
-  event.target.classList.add('was-validated');
+  event.target.classList.add('was-validated'); // 유효성 검사 (check/x 표시)
 
   const titleElement = document.querySelector('#title');
   const messageElement = document.querySelector('#message');
@@ -37,12 +37,12 @@ async function save(event) {
 
   const token = getToken();
   if (token === null) {
-    location.href = '/login';
+    location.href = '/login'; // location.assign('/login');
     return;
   }
 
   try {
-    await axios.post(
+    await axios.post( // const res = await axios.post(
       'https://api.marktube.tv/v1/book',
       {
         title,
@@ -56,7 +56,7 @@ async function save(event) {
         },
       },
     );
-    location.href = '/';
+    location.href = '/'; // location.assign('/');
   } catch (error) {
     console.log('save error', error);
     alert('책 추가 실패');

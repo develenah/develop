@@ -1,0 +1,76 @@
+function render(books) {
+  const listElement = document.querySelector('#list');
+  for (let i = 0; i < books.length; i++) {
+    const book = books[i];
+    const bookElement = document.createElement('div');
+    bookElement.classList.value = 'col-md-4';
+    bookElement.innerHTML = `
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text">${book.title === '' ? '제목 없음' : book.title}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <a href="/book?id=${book.bookId}">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+              >
+                View
+              </button>
+            </a>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary btn-delete"
+              data-book-id="${book.bookId}"
+            >
+              Delete
+            </button>
+          </div>
+          <small class="text-muted">${new Date(
+            book.createdAt,
+          ).toLocaleString()}</small>
+        </div>
+      </div>
+    </div>
+    `;
+    listElement.append(bookElement);
+  }
+  document.querySelectorAll('.btn-delete').forEach(element => {
+    element.addEventListener('click', async event => {
+      const bookId = event.target.dataset.bookId;
+      try {
+        await deleteBook(bookId);
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+}
+
+async function deleteBook(bookId) {
+  const token = getToken();
+  if (token === null) {
+    location.assign('/login');
+    return;
+  }
+  await axios.delete(`https://api.marktube.tv/v1/book/${bookId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return;
+}
+
+async function main() {
+  // 버튼에 이벤트 연결
+
+  // 토큰 체크
+
+  // 토큰으로 서버에서 나의 정보 받아오기
+
+  // 나의 책을 서버에서 받아오기
+
+  // 받아온 책을 그리기
+  render(books);
+}

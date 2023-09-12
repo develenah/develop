@@ -7,12 +7,12 @@ async function getUserByToken(token) {
     const res = await axios.get('https://api.marktube.tv/v1/me', {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
+      }, // 유저 정보 확인
     });
     return res.data;
   } catch (error) {
     console.log('getUserByToken error', error);
-    return null;
+    return null; // 문제가 있을 시 null
   }
 }
 
@@ -64,9 +64,9 @@ async function deleteBook(bookId) {
   return;
 }
 
-function bindLogoutButton() {
+function bindLogoutButton() { // 버튼에 이벤트 연결
   const btnLogout = document.querySelector('#btn_logout');
-  btnLogout.addEventListener('click', logout);
+  btnLogout.addEventListener('click', logout); // click 하면 logout 로직함수 실행
 }
 
 function render(books) {
@@ -148,4 +148,4 @@ async function main() {
   render(books);
 }
 
-document.addEventListener('DOMContentLoaded', main);
+document.addEventListener('DOMContentLoaded', main); // DOMContentLoaded html 로드 후에 main 함수 실행
